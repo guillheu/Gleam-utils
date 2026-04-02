@@ -1,34 +1,27 @@
-pub opaque type LockedType(kind, content) {
-  LockedType(content: content)
+pub type Unlocked(content) {
+  Unlocked(content: content)
 }
 
-pub type Unlocked
-
-pub type Locked
-
-pub fn new_unlocked(from: any) -> LockedType(Unlocked, any) {
-  LockedType(from)
+pub opaque type Locked(content) {
+  Locked(content: content)
 }
 
-pub fn new_locked(from: any) -> LockedType(Locked, any) {
-  LockedType(from)
+pub fn new_unlocked(from: any) -> Unlocked(any) {
+  Unlocked(from)
 }
 
-pub fn unlock(from: LockedType(Locked, any)) -> LockedType(Unlocked, any) {
-  LockedType(from.content)
+pub fn new_locked(from: any) -> Locked(any) {
+  Locked(from)
 }
 
-pub fn lock(from: LockedType(Unlocked, any)) -> LockedType(Locked, any) {
-  LockedType(from.content)
+pub fn unlock(from: Locked(any)) -> Unlocked(any) {
+  Unlocked(from.content)
 }
 
-pub fn get_content(from: LockedType(kind, any)) -> any {
+pub fn lock(from: Unlocked(any)) -> Locked(any) {
+  Locked(from.content)
+}
+
+pub fn get_locked_content(from: Locked(any)) -> any {
   from.content
-}
-
-pub fn update_content(
-  _from: LockedType(Unlocked, any),
-  with: any,
-) -> LockedType(Unlocked, any) {
-  new_unlocked(with)
 }

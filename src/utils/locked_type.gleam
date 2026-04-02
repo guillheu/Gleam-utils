@@ -26,6 +26,6 @@ pub fn get_locked_content(from: Locked(any)) -> any {
   from.content
 }
 
-pub fn update_content(from: Unlocked(any), with: any) -> Unlocked(any) {
+pub fn update_content(_: Unlocked(any), with: any) -> Unlocked(any) {
   Unlocked(with)
 }
